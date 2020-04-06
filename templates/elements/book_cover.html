@@ -1,0 +1,11 @@
+<div id="books_div">
+    {% for book in books %}
+        <div class="book_cover">
+            <a href="{{ url_for('book_details', book_id=book.id) }}">{{ book.authors.author_name }} - {{ book.title }}, {{ book.year }}</a>
+        </div>
+    {% else %}
+        <div class="no_books_found">
+            <p>No books found</p>
+        </div>
+    {% endfor %}
+</div>

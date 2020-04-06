@@ -1,3 +1,11 @@
+.idea/
+api_keys
+books.csv
+set_app_for_test.py
+settings.sh
+flask_session/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div id="book_info">
+        <h1>{{ book.title }}</h1>
+        <p>Author: {{ author.author_name }}</p>
+        <p>Published: {{ book.year }}</p>
+        <p>ISBN: {{ book.isbn }}</p>
+    </div>
+    {% if goodreads_rating %}
+        <div id="goodreads_rating">
+            <p>Ratings count: {{ goodreads_rating.books[0].ratings_count }}</p>
+            <p>Average rating: {{ goodreads_rating.books[0].average_rating }}</p>
+        </div>
+    {% endif %}
+    <div id="book_reviews">
+        {% for review in reviews %}
+            <p>{{ review.users.login }} - {{ review.review_date.strftime('%d.%m.%Y %H:%M') }}: {{ review.rating }}</p>
+            <p>{{ review.review }}</p>
+        {% else %}
+            <p>No reviews</p>
+        {% endfor %}
+    </div>
+    {% if is_reviewable %}
+        <div id="post_review">
+            <form name="book_review_form" action="{{ url_for('submit_review') }}" method="POST">
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <input type="radio" id="1" name="book_rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="book_rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="book_rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="book_rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="book_rating" value="5">
+                <label for="5">5</label>
+                <br>
+                <textarea name="review_text" rows="4" cols="50"></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back</a>
+{% endblock %}
