@@ -18,6 +18,7 @@ class Books(db.Model):
     title = db.Column(db.String, nullable=False)
     year = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), nullable=False)
+    cover_url = db.Column(db.String)
     authors = db.relationship("Authors", backref="authors", lazy=True)
 
 

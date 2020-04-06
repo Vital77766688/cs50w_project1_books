@@ -1,7 +1,9 @@
 <div id="books_div">
     {% for book in books %}
         <div class="book_cover">
-            <a href="{{ url_for('book_details', book_id=book.id) }}">{{ book.authors.author_name }} - {{ book.title }}, {{ book.year }}</a>
+            <a href="{{ url_for('book_details', book_id=book.id) }}">
+                <img class="book_cover_img" src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg" alt="{{ book.authors.author_name }} - {{ book.title }}, {{ book.year }}" title="{{ book.authors.author_name }} - {{ book.title }}, {{ book.year }}">
+            </a>
         </div>
     {% else %}
         <div class="no_books_found">

@@ -5,14 +5,7 @@
         <input type="text" name="book_search" placeholder="Type ISBN or title or author">
         <button type="submit">Search</button>
     </form>
-
-    <ul>
-        {% for book in books %}
-            <li><a href="{{ url_for('book_details', book_id=book.id) }}">{{ book.authors.author_name }} - {{ book.title }}, {{ book.year }}</a></li>
-        {% else %}
-            <li>No books found</li>
-        {% endfor %}
-    </ul>
+    {% include "elements/book_cover.html" %}
     {% if back %}
         <a href="{{ url_for('index') }}">Back</a><br>
     {% endif %}
