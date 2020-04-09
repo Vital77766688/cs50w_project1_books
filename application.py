@@ -38,7 +38,7 @@ def index():
     if session.get('login') is None:
         return redirect(url_for("login"))
     login = session['login']
-    books = Books.query.order_by(Books.year.desc()).limit(20).all()
+    books = Books.query.order_by(Books.year.desc(), Books.id.asc()).limit(20).all()
     return render_template("index.html", books=books, login=login.capitalize())
 
 
@@ -134,6 +134,8 @@ def api(isbn):
     if session.get('login') is None:
         return redirect(url_for("login"))
     book = Books.query.filter_by(isbn=isbn).first()
+    if book is None:
+        return jsonify({"warning": "No books found"})
     try:
         goodreads_rating = requests.get(os.getenv("GOODREADS_RATING_COUNTS_URL"), params={"key":os.getenv("GOODREADS_API_KEY"), "isbns": book.isbn}).json()
     except Exception as e:
